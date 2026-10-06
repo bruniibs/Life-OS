@@ -3,6 +3,12 @@ print("LIFE OS")
 print("Planner")
 tasks = []
 
+task = {
+    "id": 1,
+    "title": "Estudar Python",
+    "completed": False
+}
+
 
 while True:
     print("\nMenu:")
@@ -13,20 +19,18 @@ while True:
     
     if opcao == "1":
         print("Ver tarefas")
-        continue
     elif opcao == "2":
-        print("Adicionar tarefa")
-        continue
+        print("Digite o nome da tarefa:")
+        title = input("")
+        print("Tarefa adicionada!")
+        tasks.append(task)
     elif opcao == "3":
         print("Concluir tarefa")
-        continue
     elif opcao == "4":
         print("Remover tarefa")
-        continue
     elif opcao == "5":
         print("Saindo...")
         break
     else:
         print("Opção inválida.")
-        break
     
