@@ -12,6 +12,7 @@ while True:
     print("Você escolheu a opção:", opcao)
     
     if opcao == "1":
+        print("Ver tarefas")
         print(tasks)
         
     elif opcao == "2":
