@@ -29,13 +29,22 @@ while True:
         tasks.append(task)
         print("Tarefa adicionada! \n")
         
-    elif opcao == "3":
-        id_digitado = input("Digite o ID da tarefa que deseja concluir: \n")
-        for task in tasks:
-            if int(id_digitado) == task['id']:
-                task['completed'] = True
-                print("Tarefa concluída!")
-                break
+    elif opcao == "3":        
+        try:
+            # vai verificar se o input eh um numero int
+            id_digitado = int(input("Digite o ID da tarefa que deseja concluir: \n"))
+            
+            for task in tasks:
+                if id_digitado == task['id']:
+                    task['completed'] = True
+                    print("Tarefa concluída!")
+                    break
+             # ELSE do FOR, caso id digitado nao exista
+            else:
+                print("Tarefa não encontrada.")
+            # mensagem de erro caso input seja invalido
+        except ValueError:
+                print("ID inválido. Por favor, digite um número inteiro.")
         
     elif opcao == "4":
         print("Remover tarefa")
