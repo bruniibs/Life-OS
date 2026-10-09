@@ -6,27 +6,36 @@ tasks = []
 
 while True:
     print("\nMenu:")
-    print("1. Ver tarefas\n2. Adicionar tarefa\n3. Concluir tarefa\n4. remover tarefa\n5. Sair")
+    print("1. Ver tarefas\n2. Adicionar tarefa\n3. Concluir tarefa\n4. remover tarefa\n5. Sair\n")
     
-    opcao = input("Escolha uma opção: ").strip()
-    print("Você escolheu a opção:", opcao)
+    opcao = input("Escolha uma opção: \n").strip()
+    print("Você escolheu a opção: \n", opcao)
     
     if opcao == "1":
-        print("Ver tarefas")
-        print(tasks)
+        print("=== TAREFAS ===")
+        for task in tasks:
+            if task['completed'] == False:
+                print(f"[ ] {task['id']}. {task['title']} \n")
+            else:
+                print(f"[✓] {task['id']}. {task['title']} \n")
+            
         
     elif opcao == "2":
-        title = input("Digite o nome da tarefa:")
+        title = input("Digite o nome da tarefa: \n")
         task = {
-        "id": 1,
+        "id": len(tasks) + 1,
         "title": title,
-        "completed": False
-}
+        "completed": False}
         tasks.append(task)
-        print("Tarefa adicionada!")
+        print("Tarefa adicionada! \n")
         
     elif opcao == "3":
-        print("Concluir tarefa")
+        id_digitado = input("Digite o ID da tarefa que deseja concluir: \n")
+        for task in tasks:
+            if int(id_digitado) == task['id']:
+                task['completed'] = True
+                print("Tarefa concluída!")
+                break
         
     elif opcao == "4":
         print("Remover tarefa")
