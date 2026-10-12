@@ -3,6 +3,7 @@ print("LIFE OS")
 print("Planner")
 
 tasks = []
+next_id = 1
 
 while True:
     print("\nMenu:")
@@ -23,10 +24,11 @@ while True:
     elif opcao == "2":
         title = input("Digite o nome da tarefa: \n")
         task = {
-        "id": len(tasks) + 1,
+        "id": next_id,
         "title": title,
         "completed": False}
         tasks.append(task)
+        next_id += 1
         print("Tarefa adicionada! \n")
         
     elif opcao == "3":        
@@ -47,7 +49,18 @@ while True:
                 print("ID inválido. Por favor, digite um número inteiro.")
         
     elif opcao == "4":
-        print("Remover tarefa")
+        try:
+            id_digitado = int(input("Digite o ID da tarefa que deseja remover: \n"))
+            
+            for task in tasks:
+                if id_digitado == task['id']:
+                    tasks.remove(task)
+                    print("Tarefa removida!")
+                    break
+            else:
+                print("Tarefa não encontrada.")
+        except ValueError:
+                print("ID inválido. Por favor, digite um número inteiro.")
         
     elif opcao == "5":
         print("Saindo...")
