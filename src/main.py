@@ -1,9 +1,12 @@
+import json
 
 print("LIFE OS")
 print("Planner")
 
 tasks = []
 next_id = 1
+
+with open("tasks.json", "w", encoding="utf-8") as arquivo:
 
 while True:
     print("\nMenu:")
