@@ -67,5 +67,5 @@ while True:
         break
     
     else:
-        print("Opção inválida.")
+        print("Opção inválida..")
     
