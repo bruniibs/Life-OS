@@ -1,19 +1,32 @@
 import json
+from pathlib import Path
+# Define the path to the tasks.json file
+DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "tasks.json"
 
 print("LIFE OS")
 print("Planner")
 
-tasks = []
-next_id = 1
+def save_tasks():
+    data = {
+        "next_id": next_id,
+        "tasks": tasks
+    }
 
-with open("tasks.json", "w", encoding="utf-8") as arquivo:
+    with open(DATA_FILE, "w", encoding="utf-8") as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
+
+def load_tasks():
+    with open(DATA_FILE, "r", encoding="utf-8") as file:
+        data = json.load(file)
+    return data["tasks"], data["next_id"]
+
+tasks, next_id = load_tasks()
 
 while True:
     print("\nMenu:")
     print("1. Ver tarefas\n2. Adicionar tarefa\n3. Concluir tarefa\n4. remover tarefa\n5. Sair\n")
     
     opcao = input("Escolha uma opção: \n").strip()
-    print("Você escolheu a opção: \n", opcao)
     
     if opcao == "1":
         print("=== TAREFAS ===")
@@ -32,6 +45,7 @@ while True:
         "completed": False}
         tasks.append(task)
         next_id += 1
+        save_tasks()
         print("Tarefa adicionada! \n")
         
     elif opcao == "3":        
@@ -42,6 +56,7 @@ while True:
             for task in tasks:
                 if id_digitado == task['id']:
                     task['completed'] = True
+                    save_tasks()
                     print("Tarefa concluída!")
                     break
              # ELSE do FOR, caso id digitado nao exista
@@ -58,6 +73,7 @@ while True:
             for task in tasks:
                 if id_digitado == task['id']:
                     tasks.remove(task)
+                    save_tasks()
                     print("Tarefa removida!")
                     break
             else:
