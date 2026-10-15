@@ -11,6 +11,7 @@ def save_tasks():
         "next_id": next_id,
         "tasks": tasks
     }
+    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     with open(DATA_FILE, "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False, indent=4)
