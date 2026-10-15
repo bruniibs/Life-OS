@@ -16,9 +16,16 @@ def save_tasks():
         json.dump(data, file, ensure_ascii=False, indent=4)
 
 def load_tasks():
-    with open(DATA_FILE, "r", encoding="utf-8") as file:
-        data = json.load(file)
-    return data["tasks"], data["next_id"]
+    try:
+        with open(DATA_FILE, "r", encoding="utf-8") as file:
+            data = json.load(file)
+        return data["tasks"], data["next_id"]
+    except FileNotFoundError:
+        # se o arquivo nao for encontrado, comeca o programa com uma lista vazia com ID 1
+        return [], 1
+    except json.JSONDecodeError:
+        print("Erro: o arquivo de tarefas contem JSON invalido.")
+        raise
 
 tasks, next_id = load_tasks()
 
