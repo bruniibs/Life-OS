@@ -1,4 +1,5 @@
 from storage import save_tasks, load_tasks
+from planner import add_task, complete_task, remove_task, list_tasks
 
 tasks, next_id = load_tasks()
 
@@ -14,22 +15,18 @@ while True:
     
     if opcao == "1":
         print("=== TAREFAS ===")
-        for task in tasks:
-            if task['completed'] == False:
-                print(f"[ ] {task['id']}. {task['title']} \n")
+        for task in list_tasks(tasks):
+            if task["completed"]:
+                print(f"[✓] {task['id']}. {task['title']}")
             else:
-                print(f"[✓] {task['id']}. {task['title']} \n")
-            
+                print(f"[ ] {task['id']}. {task['title']}")
         
     elif opcao == "2":
         title = input("Digite o nome da tarefa: \n")
-        task = {
-        "id": next_id,
-        "title": title,
-        "completed": False}
-        tasks.append(task)
-        next_id += 1
+        
+        next_id = add_task(tasks, next_id, title)
         save_tasks(tasks, next_id)
+        
         print("Tarefa adicionada! \n")
         
     elif opcao == "3":        
@@ -37,13 +34,9 @@ while True:
             # vai verificar se o input eh um numero int
             id_digitado = int(input("Digite o ID da tarefa que deseja concluir: \n"))
             
-            for task in tasks:
-                if id_digitado == task['id']:
-                    task['completed'] = True
-                    save_tasks(tasks, next_id)
-                    print("Tarefa concluída!")
-                    break
-             # ELSE do FOR, caso id digitado nao exista
+            if complete_task(tasks, id_digitado):
+                save_tasks(tasks, next_id)
+                print("Tarefa concluída!")
             else:
                 print("Tarefa não encontrada.")
             # mensagem de erro caso input seja invalido
@@ -54,14 +47,12 @@ while True:
         try:
             id_digitado = int(input("Digite o ID da tarefa que deseja remover: \n"))
             
-            for task in tasks:
-                if id_digitado == task['id']:
-                    tasks.remove(task)
-                    save_tasks(tasks, next_id)
-                    print("Tarefa removida!")
-                    break
+            if remove_task(tasks, id_digitado):
+                save_tasks(tasks, next_id)
+                print("Tarefa removida!")
             else:
                 print("Tarefa não encontrada.")
+
         except ValueError:
                 print("ID inválido. Por favor, digite um número inteiro.")
         
