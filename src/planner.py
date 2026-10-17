@@ -4,7 +4,10 @@ def add_task(tasks, next_id, title):
     task = {
         "id": next_id,
         "title": title,
-        "completed": False
+        "completed": False,
+        "priority": "medium",
+        "due_date": None,
+        "category": "personal"
         }
     tasks.append(task)
     return next_id + 1
