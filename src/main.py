@@ -22,9 +22,22 @@ while True:
                 print(f"[ ] {task['id']}. {task['title']}")
         
     elif opcao == "2":
+        # recebe o titulo da tarefa
         title = input("Digite o nome da tarefa: \n")
         
-        next_id = add_task(tasks, next_id, title)
+        # recebe a prioridade da tarefa
+        priority = input(
+            "Prioridade (low, medium, high): \n"
+        ).strip().lower()
+        
+        while priority not in ("low", "medium", "high"):
+            print("Prioridade inválida. Por favor, escolha entre low, medium ou high.")
+            priority = input(
+                "Prioridade (low, medium, high): \n"
+            ).strip().lower()
+        
+        # cria e salva a tarefa        
+        next_id = add_task(tasks, next_id, title, priority)
         save_tasks(tasks, next_id)
         
         print("Tarefa adicionada! \n")

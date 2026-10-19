@@ -1,11 +1,11 @@
 
 # função de criar uma tarefa
-def add_task(tasks, next_id, title):
+def add_task(tasks, next_id, title, priority):
     task = {
         "id": next_id,
         "title": title,
         "completed": False,
-        "priority": "medium",
+        "priority": priority,
         "due_date": None,
         "category": "personal"
         }
